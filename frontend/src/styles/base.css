@@ -94,7 +94,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--subface1);
+  border-bottom: 1px solid var(--surface0);
   background-color: var(--mantle);
 }
 
@@ -134,7 +134,7 @@ a[aria-current="page"] {
 .seller-btn {
   padding: 8px 16px;
   border-radius: 20px;
-  border: 1px solid var(--subface1);
+  border: 1px solid var(--surface1);
   background-color: var(--surface0);
   color: var(--text);
   cursor: pointer;
@@ -196,7 +196,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .hero {
-  height: 280px;
+  min-height: 280px;
   margin: 30px;
   overflow: hidden;
   position: relative;
@@ -211,14 +211,14 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .hero-content {
   flex: 0 0 100%;
-  height: 100%;
   padding: 32px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border: 1px solid var(--subface1);
   background-color: var(--base);
+  border: 1px solid var(--surface0);
+  border-radius: 20px;
 }
 
 .hero-slider::-webkit-scrollbar {
@@ -236,7 +236,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .hero-text h1 {
-  font-size: 44px;
+  font-size: 38px;
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 30px;
@@ -255,8 +255,15 @@ input[type="search"]::-webkit-search-cancel-button {
   padding: 12px 24px;
   border-radius: 28px;
   border: none;
-  margin-right: 15px;
+  margin-right: 10px;
   cursor: pointer;
+  transition: box-shadow 0.1s ease;
+}
+
+.buy-btn:hover {
+  background-color: var(--teal);
+  color: var(--surface0);
+  box-shadow: 0 0 10px var(--teal);
 }
 
 .more {
