@@ -166,6 +166,10 @@ a[aria-current="page"] {
   display: none;
 }
 
+.icon-btn:hover {
+  background-color: transparent;
+}
+
 .search-form {
   display: none;
   align-items: center;
