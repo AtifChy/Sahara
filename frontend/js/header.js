@@ -24,11 +24,11 @@ async function injectHeader() {
 }
 
 function highlightActiveLink(scope) {
-  const path = window.location.pathname.split("/").pop() ?? "";
+  const currentPath = window.location.pathname;
   const links = scope.querySelectorAll("nav a[href]");
   links.forEach((link) => {
-    const herf = link.getAttribute("href")?.split("/").pop();
-    if (herf === path) {
+    const linkPath = new URL(link.href).pathname;
+    if (linkPath === currentPath) {
       link.setAttribute("aria-current", "page");
     }
   });
