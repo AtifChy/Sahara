@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function showError(message) {
-    error.textContent = message;
+    error.textContent = "* " + message;
     error.style.display = "block";
   }
 
