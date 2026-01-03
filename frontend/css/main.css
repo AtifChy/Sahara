@@ -188,6 +188,16 @@ nav a {
   font-weight: 500;
 }
 
+nav a[aria-label="Seller"],
+a[aria-label="Seller"]:hover {
+  color: var(--sky);
+}
+
+nav a[aria-label="Admin"],
+a[aria-label="Admin"]:hover {
+  color: var(--maroon);
+}
+
 nav a:hover,
 a[aria-current="page"] {
   color: var(--blue);
@@ -195,7 +205,14 @@ a[aria-current="page"] {
   text-underline-offset: 0.3em;
 }
 
+@media (max-width: 768px) {
+  nav a {
+    margin: 0 8px;
+  }
+}
+
 .header-right {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 20px;
