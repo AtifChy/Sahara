@@ -145,7 +145,7 @@ header {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   header.search-active nav {
     display: none;
   }
@@ -451,12 +451,12 @@ input[type="search"]::-webkit-search-cancel-button {
   background: var(--surface0);
   border: none;
   border-radius: 50%;
-  padding: 6px;
+  padding: 4px 6px;
   cursor: pointer;
 }
 
 .wishlist .material-symbols-outlined {
-  font-size: 20px;
+  font-size: 22px;
 }
 
 .product-image {
@@ -470,6 +470,7 @@ input[type="search"]::-webkit-search-cancel-button {
 .product-image img {
   width: 100%;
   height: 180px;
+  object-fit: contain;
 }
 
 .see-more {
