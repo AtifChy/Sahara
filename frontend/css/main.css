@@ -98,12 +98,18 @@ body {
 }
 
 header {
-  padding: 16px 10px;
+  padding: 16px 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--surface0);
   background-color: var(--mantle);
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: 16px 20px;
+  }
 }
 
 main {
