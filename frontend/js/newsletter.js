@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+(() => {
   const form = document.querySelector(".newsletter-form");
   if (!form) return;
 

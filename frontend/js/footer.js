@@ -17,4 +17,5 @@ async function injectFooter() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", injectFooter);
+// document.addEventListener("DOMContentLoaded", injectFooter);
+injectFooter();

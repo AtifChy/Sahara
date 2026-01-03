@@ -1,8 +1,8 @@
 export function initSearch() {
+  const header = document.querySelector("header");
   const toggleBtn = document.getElementById("search-toggle");
   const searchForm = document.getElementById("search-form");
   const searchInput = document.getElementById("search-input");
-  const header = document.querySelector("header");
 
   if (!toggleBtn || !searchForm) return;
 
@@ -12,9 +12,8 @@ export function initSearch() {
     if (isOpen === open) return;
 
     isOpen = open;
-    searchForm.setAttribute("aria-hidden", String(!open));
     header.classList.toggle("search-active", open);
-    // toggleBtn.setAttribute("aria-hidden", String(open));
+    searchForm.setAttribute("aria-hidden", String(!open));
 
     if (open) {
       requestAnimationFrame(() => searchInput?.focus());

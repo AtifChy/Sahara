@@ -34,4 +34,5 @@ function highlightActiveLink(scope) {
   });
 }
 
-document.addEventListener("DOMContentLoaded", injectHeader);
+// document.addEventListener("DOMContentLoaded", injectHeader);
+injectHeader();

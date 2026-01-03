@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+(() => {
   const slides = [
     {
       offer: "Limited Time Offer 30% off",
