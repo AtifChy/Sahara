@@ -725,3 +725,66 @@ footer {
   text-align: center;
   color: var(--subtext0);
 }
+
+.shop-page {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 40px;
+  padding: 40px 100px;
+}
+
+.filters {
+  border-right: 1px solid var(--surface0);
+}
+
+.category-list {
+  list-style: none;
+  padding: 0;
+}
+
+.category-list button {
+  background: none;
+  border: none;
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+.category-list button.active {
+  color: var(--blue);
+  font-weight: 600;
+}
+
+.select-box {
+  position: relative;
+}
+
+.select-box select {
+  width: 100%;
+  height: 36px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--surface0);
+  background: var(--mantle);
+  color: var(--text);
+  margin-bottom: 20px;
+  appearance: none;
+}
+
+.select-box select:focus {
+  outline: 1px solid var(--surface2);
+}
+
+.select-box::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--subtext0);
+  border-bottom: 2px solid var(--subtext0);
+  top: 50%;
+  right: 12px;
+  margin-top: -16px;
+  transform: rotate(45deg);
+  pointer-events: none;
+}

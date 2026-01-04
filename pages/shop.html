@@ -6,12 +6,40 @@
     <title>Sahara | About</title>
     <link rel="stylesheet" href="/css/main.css" />
     <script type="module" src="/js/header.js"></script>
-    <script defer src="/js/footer.js"></script>
+    <script type="module" src="/js/footer.js"></script>
   </head>
   <body>
     <div id="header"></div>
 
-    <main></main>
+    <main class="shop-page">
+      <aside class="filters">
+        <h3>Categories</h3>
+
+        <ul class="category-list">
+          <li><button class="active" data-category="all">All</button></li>
+          <li><button data-category="earphones">Earphones</button></li>
+          <li><button data-category="headphones">Headphones</button></li>
+          <li><button data-category="speakers">Speakers</button></li>
+          <li><button data-category="laptops">Laptops</button></li>
+        </ul>
+      </aside>
+
+      <section class="shop-products">
+        <div class="shop-header">
+          <h2>All Products</h2>
+
+          <div class="select-box">
+            <select name="" id="sort">
+              <option value="default">Sort by</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="product-grid" id="product-grid"></div>
+      </section>
+    </main>
 
     <div id="footer"></div>
   </body>
