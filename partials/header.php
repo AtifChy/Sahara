@@ -40,3 +40,5 @@
     </button>
   </div>
 </header>
+
+<script defer src="/js/search.js"></script>

@@ -7,7 +7,6 @@
   <title>Sahara</title>
   <link rel="icon" href="assets/favicon.png">
   <link rel="stylesheet" href="css/main.css" />
-  <script defer src="js/search.js"></script>
   <script defer src="js/hero.js"></script>
   <script defer src="js/newsletter.js"></script>
 </head>

@@ -765,6 +765,7 @@ footer {
 
 .select-box {
   position: relative;
+  max-width: 160px;
 }
 
 .select-box select {
