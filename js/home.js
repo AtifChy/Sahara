@@ -1,4 +1,4 @@
-import { ProductModule } from "./product-module.js";
+import { ProductModule } from "./modules/product.js";
 
 (() => {
   // DOM element
