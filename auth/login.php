@@ -7,6 +7,7 @@
   <title>Sahara | Login</title>
   <link rel="icon" href="../assets/favicon.ico" />
   <link rel="stylesheet" href="../css/auth.css" />
+  <script type="module" src="../js/login.js"></script>
 </head>
 
 <body>
