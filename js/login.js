@@ -16,34 +16,30 @@ import {
   const passwordError = document.getElementById("password-error");
 
   // Initialize
-  attachEventListeners();
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    validateEmail();
+    validatePassword();
+  });
+
+  emailInput.addEventListener("blur", validateEmail);
+  passwordInput.addEventListener("blur", validatePassword);
+
+  emailInput.addEventListener("input", () => {
+    clearError(emailError);
+  });
+  passwordInput.addEventListener("input", () => {
+    clearError(passwordError);
+  });
+
   setupPasswordToggles();
 
-  function attachEventListeners() {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      validateEmail();
-      validatePassword();
-    });
-
-    // focus change validation
-    emailInput.addEventListener("blur", validateEmail);
-    passwordInput.addEventListener("blur", validatePassword);
-
-    // clear errors on input
-    emailInput.addEventListener("input", () => {
-      clearError(emailError);
-    });
-    passwordInput.addEventListener("input", () => {
-      clearError(passwordError);
-    });
-  }
-
+  // Validation functions
   function validateEmail() {
-    validateEmailField(emailInput, emailError);
+    return validateEmailField(emailInput, emailError);
   }
 
   function validatePassword() {
-    validatePasswordField(passwordInput, passwordError);
+    return validatePasswordField(passwordInput, passwordError);
   }
 })();
