@@ -49,7 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
   <main class="auth-page">
-    <div class="logo"><span>Sahara</span></div>
     <div class="auth-container">
       <div class="auth-card">
         <?php if ($success): ?>
@@ -63,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </div>
         <?php else: ?>
           <div class="auth-header">
-            <h1>Welcome to Sahara</h1>
+            <h1>Welcome to <span class="logo">Sahara</span></h1>
             <p>Create an account to start shopping today</p>
           </div>
 

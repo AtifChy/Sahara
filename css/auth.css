@@ -18,6 +18,10 @@
   color: var(--mauve);
 }
 
+h1 .logo {
+  margin-bottom: 0px;
+}
+
 .auth-container {
   width: 100%;
   display: flex;
@@ -32,6 +36,7 @@
   width: 100%;
   max-width: 500px;
   justify-self: start;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .auth-header {
