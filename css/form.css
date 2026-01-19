@@ -1,0 +1,286 @@
+@import "colors.css";
+
+.form-container {
+  min-height: calc(100vh - 60px);
+  padding: 30px 20px;
+}
+
+.form-content {
+  max-width: 800px;
+  margin: auto;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 24px;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.back-link .material-symbols-outlined {
+  color: inherit;
+}
+
+.back-link:hover {
+  background: var(--surface0);
+  color: var(--blue);
+}
+
+.form-card {
+  background: var(--mantle);
+  border: 1px solid var(--surface0);
+  border-radius: 12px;
+}
+
+.form-header {
+  padding: 32px;
+  border-bottom: 1px solid var(--surface0);
+}
+
+.form-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+  margin-bottom: 8px;
+}
+
+.form-header p {
+  color: var(--subtext0);
+  margin: 0;
+  font-size: 14px;
+}
+
+form {
+  padding: 32px;
+}
+
+.form-section {
+  margin-bottom: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--surface0);
+}
+
+.form-section:last-of-type {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.form-section-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.image-upload-area {
+  padding: 40px;
+  background: var(--base);
+  text-align: center;
+  border: 2px dashed var(--surface0);
+  border-radius: 12px;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+
+.image-upload-area:hover {
+  border-color: var(--blue);
+  background: var(--surface0);
+}
+
+.image-input {
+  display: none;
+}
+
+.image-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.image-preview .material-symbols-outlined {
+  font-size: 64px;
+  color: var(--surface2);
+}
+
+.image-preview p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.image-preview small {
+  font-size: 13px;
+  color: var(--subtext0);
+}
+
+.image-preview.uploaded img {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 8px;
+}
+
+.image-preview.uploaded p {
+  margin-top: 12px;
+  color: var(--green);
+}
+
+.image-preview.uploaded .material-symbols-outlined {
+  font-size: 16px;
+  vertical-align: middle;
+  color: inherit;
+}
+
+.form-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.form-hint {
+  display: block;
+  font-size: 12px;
+  color: var(--subtext0);
+  margin-top: 6px;
+}
+
+.form-input {
+  width: 100%;
+  background: var(--base);
+  padding: 12px 16px;
+  border: 1px solid var(--surface0);
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-input:focus {
+  border-color: var(--blue);
+}
+
+.form-input::placeholder {
+  color: var(--subtext0);
+}
+
+textarea.form-input {
+  resize: vertical;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.input-with-symbol {
+  position: relative;
+}
+
+.input-symbol {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--subtext0);
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.input-with-symbol .form-input {
+  padding-left: 36px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.checkbox-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.checkbox-label strong {
+  font-size: 14px;
+}
+
+.checkbox-label small {
+  font-size: 12px;
+  color: var(--subtext0);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+}
+
+.btn .material-symbols-outlined {
+  color: inherit;
+  margin-left: -6px;
+}
+
+.btn-primary {
+  background: var(--blue);
+  color: var(--crust);
+}
+
+.btn-primary:hover {
+  background: var(--sapphire);
+}
+
+.btn-secondary {
+  border: 1px solid transparent;
+  background: var(--mantle);
+  border-color: var(--surface0);
+}
+
+.btn-secondary:hover {
+  background: var(--red);
+  color: var(--crust);
+  border-color: var(--red);
+}
+
+.error-message {
+  margin-left: 0px;
+}

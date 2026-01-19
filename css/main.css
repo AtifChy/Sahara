@@ -13,6 +13,12 @@
   color: var(--text);
 }
 
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
 html,
 body {
   height: 100%;
@@ -865,6 +871,7 @@ footer {
 .wishlist.active {
   background: var(--pink);
   border-color: var(--pink);
+  font-variation-settings: "FILL" 1;
 }
 
 .wishlist.active span {
