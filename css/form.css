@@ -1,4 +1,5 @@
 @import "colors.css";
+@import "alert.css";
 
 .form-container {
   min-height: calc(100vh - 60px);
@@ -59,7 +60,7 @@
   font-size: 14px;
 }
 
-form {
+.product-form {
   padding: 32px;
 }
 
@@ -82,7 +83,9 @@ form {
   margin-bottom: 20px;
 }
 
-.image-upload-area {
+.image-upload-area,
+.image-display-area {
+  position: relative;
   padding: 40px;
   background: var(--base);
   text-align: center;
@@ -93,23 +96,48 @@ form {
     background 0.2s;
 }
 
+.badge-new-overlay {
+  position: absolute;
+  top: 52px;
+  left: 112px;
+  background: var(--green);
+  color: var(--crust);
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
 .image-upload-area:hover {
   border-color: var(--blue);
   background: var(--surface0);
+}
+
+.image-display-area img {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 8px;
 }
 
 .image-input {
   display: none;
 }
 
-.image-preview {
+.image-display-area:has(.no-image) {
+  background: var(--surface0);
+}
+
+.image-preview,
+.image-display-area .no-image {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
 }
 
-.image-preview .material-symbols-outlined {
+.image-preview .material-symbols-outlined,
+.image-display-area .no-image .material-symbols-outlined {
   font-size: 64px;
   color: var(--surface2);
 }
@@ -167,6 +195,17 @@ form {
   transition: border-color 0.2s;
 }
 
+.form-input:disabled,
+.form-input[readonly] {
+  background: var(--surface0);
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+input[type="number"].form-input:disabled {
+  appearance: textfield;
+}
+
 .form-input:focus {
   border-color: var(--blue);
 }
@@ -215,6 +254,11 @@ textarea.form-input {
   display: flex;
   align-items: flex-start;
   gap: 6px;
+}
+
+.checkbox-group input[type="checkbox"]:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
 }
 
 .checkbox-label {
@@ -281,6 +325,75 @@ textarea.form-input {
   border-color: var(--red);
 }
 
+.btn-danger {
+  background: var(--red);
+  color: var(--crust);
+}
+
+.btn-danger:hover {
+  background: var(--maroon);
+}
+
 .error-message {
   margin-left: 0px;
+}
+
+.alert {
+  margin: 32px 32px 0 32px;
+}
+
+.product-id-display {
+  color: var(--subtext0);
+  font-weight: 600;
+}
+
+.rating-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+}
+
+.rating-display .material-symbols-outlined {
+  color: var(--yellow);
+  font-size: 20px;
+  font-variation-settings:
+    "FILL" 1,
+    "wght" 700,
+    "GRAD" 0,
+    "opsz" 48;
+}
+
+.rating-display strong {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.rating-display .rating-max {
+  color: var(--subtext0);
+  font-size: 14px;
+}
+
+.metadata-display {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.metadata-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.metadata-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--subtext0);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metadata-value {
+  font-size: 14px;
 }

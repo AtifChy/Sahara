@@ -1,4 +1,5 @@
 @import "main.css";
+@import "alert.css";
 
 * {
   box-sizing: border-box;
@@ -10,6 +11,7 @@
   align-items: center;
   justify-content: center;
   padding: 30px 20px;
+  background: linear-gradient(135deg, var(--base) 0%, var(--crust) 100%);
 }
 
 .logo {
@@ -379,45 +381,4 @@ h1 .logo {
   font-size: 14px;
   color: var(--subtext0);
   margin: 0;
-}
-
-/* Alert Messages */
-.alert {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  font-size: 14px;
-}
-
-.alert span {
-  color: var(--text);
-}
-
-.alert span.material-symbols-outlined {
-  font-size: 20px;
-  flex-shrink: 0;
-}
-
-.alert p {
-  margin: 0;
-  flex: 1;
-}
-
-.alert-error {
-  background: color-mix(in srgb, var(--red) 10%, transparent);
-  border: 1px solid var(--red);
-}
-
-.alert-success {
-  background: color-mix(in srgb, var(--green) 10%, transparent);
-  border: 1px solid var(--green);
-}
-
-.alert-info {
-  background: var(--blue);
-  border: 1px solid var(--blue);
-  color: var(--blue);
 }
