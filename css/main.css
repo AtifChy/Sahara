@@ -888,7 +888,7 @@ footer {
   height: 180px;
   /* margin: 24px 0 16px 0; */
   border-radius: 8px;
-  background: var(--surface0);
+  /* background: var(--surface0); */
 }
 
 .product-image img {

@@ -198,7 +198,7 @@ $categories = ['ELECTRONICS', 'FASHION', 'ACCESSORIES', 'HOME'];
                 <td>
                   <div class="product-detailed">
                     <img
-                      src="<?php echo $product['image'] ?? 'assets/placeholder.png'; ?>"
+                      src="<?php echo !empty($product['image']) ? $product['image'] : '/assets/product_placeholder.svg'; ?>"
                       alt="<?php echo $product['title']; ?>"
                       class="product-thumbnail">
                     <div>

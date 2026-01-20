@@ -18,15 +18,15 @@ checkRememberToken();
   ?>
 
   <nav>
-    <a href="index.php" <?php echo aria_current('/index.php'); ?>>Home</a>
-    <a href="shop.php" <?php echo aria_current('/shop.php'); ?>>Shop</a>
-    <a href="about.php" <?php echo aria_current('/about.php'); ?>>About</a>
-    <a href="contact.php" <?php echo aria_current('/contact.php'); ?>>Contact</a>
+    <a href="/index.php" <?php echo aria_current('/index.php'); ?>>Home</a>
+    <a href="/shop.php" <?php echo aria_current('/shop.php'); ?>>Shop</a>
+    <a href="/about.php" <?php echo aria_current('/about.php'); ?>>About</a>
+    <a href="/contact.php" <?php echo aria_current('/contact.php'); ?>>Contact</a>
     <?php if (isset($_SESSION['user_role']) && in_array($_SESSION['user_role'], ['SELLER', 'ADMIN'])): ?>
-      <a href="seller.php" <?php echo aria_current('/seller.php'); ?> aria-label="Seller">Seller</a>
+      <a href="/seller.php" <?php echo aria_current('/seller.php'); ?> aria-label="Seller">Seller</a>
     <?php endif; ?>
     <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'ADMIN'): ?>
-      <a href="admin.php" <?php echo aria_current('/admin.php'); ?> aria-label="Admin">Admin</a>
+      <a href="/admin.php" <?php echo aria_current('/admin.php'); ?> aria-label="Admin">Admin</a>
     <?php endif; ?>
   </nav>
 
