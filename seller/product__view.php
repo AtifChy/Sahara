@@ -53,6 +53,7 @@ $categories = ['ELECTRONICS', 'FASHION', 'ACCESSORIES', 'HOME'];
   <link rel="icon" href="/assets/favicon.ico">
   <link rel="stylesheet" href="/css/main.css" />
   <link rel="stylesheet" href="/css/form.css" />
+  <script defer src="/seller/product__actions.js"></script>
 </head>
 
 <body>
