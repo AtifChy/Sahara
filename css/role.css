@@ -459,10 +459,20 @@
   transition: all 0.2s ease;
 }
 
-.btn .material-symbols-outlined {
+[class^="btn-"] {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  gap: 6px;
+  border: none;
+}
+
+[class^="btn-"] .material-symbols-outlined {
   color: inherit;
   font-weight: normal;
-  margin-left: -4px;
+  margin-left: -2px;
+  font-size: 22px;
 }
 
 .btn-primary {
@@ -490,6 +500,12 @@
 
 .btn-ghost:hover {
   background: var(--surface0);
+}
+
+label.btn-secondary {
+  padding: 6px 12px;
+  border-radius: 6px;
+  width: 110px;
 }
 
 /* Table */

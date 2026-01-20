@@ -1,3 +1,134 @@
+<?php
+require_once 'includes/db.php';
+require_once 'includes/auth.php';
+
+if (!isLoggedIn()) {
+  header('Location: /auth/login.php');
+  exit;
+}
+
+$user_id = $_SESSION['user_id'];
+$success_message = '';
+$error_message = '';
+
+$user_data = getUserData($user_id);
+
+function getUserData($user_id)
+{
+  return fetchOne("
+    SELECT
+      u.id,
+      u.email,
+      u.role,
+      p.first_name,
+      p.last_name,
+      p.phone,
+      p.gender,
+      p.address,
+      p.picture
+    FROM users u
+    JOIN user_profiles p ON u.id = p.user_id
+    WHERE u.id = {$user_id}
+  ");
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $form_type = $_POST['form_type'] ?? '';
+
+  if ($form_type === 'personal_info') {
+    $first_name = sanitizeInput($_POST['first_name'] ?? '');
+    $last_name = sanitizeInput($_POST['last_name'] ?? '');
+    $phone = sanitizeInput($_POST['phone'] ?? '');
+
+    if (empty($first_name)) {
+      $error_message = 'First name is required';
+    } elseif (!empty($phone) && !validatePhone($phone)) {
+      $error_message = 'Invalid phone number format';
+    } else {
+      $result = query("
+          UPDATE user_profiles
+          SET first_name = '$first_name',
+              last_name = '$last_name',
+              phone = '$phone'
+          WHERE user_id = '$user_id'
+        ");
+
+      if ($result) {
+        $_SESSION['user_fname'] = $first_name;
+        $_SESSION['user_lname'] = $last_name;
+        $success_message = 'Personal information updated successfully!';
+        $user_data = getUserData($user_id);
+      } else {
+        $error_message = 'Failed to update personal information. Please try again.';
+      }
+    }
+  } else if ($form_type === 'profile_picture') {
+    if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
+      $file = $_FILES['profile_picture'];
+      $allowed_types = ['image/jpeg', 'image/png'];
+      $max_size = 5 * 1024 * 1024;
+
+      if (!in_array($file['type'], $allowed_types)) {
+        $error_message = 'Invalid file type. Only JPG and PNG are allowed.';
+      } elseif ($file['size'] > $max_size) {
+        $error_message = 'File size exceeds the maximum limit of 5MB.';
+      } else {
+        $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+        $new_filename = 'user_' . uniqid() . '.' . $ext;
+        $upload_path = '/uploads/avatars/' . $new_filename;
+
+        if (move_uploaded_file($file['tmp_name'], $upload_path)) {
+          if (!empty($user_data['picture']) && file_exists($user_data['picture'])) {
+            unlink($user_data['picture']);
+          }
+          query("
+            UPDATE user_profiles
+            SET picture = '$new_filename'
+            WHERE user_id = '$user_id'
+          ");
+          $success_message = 'Profile picture updated successfully!';
+          $user_data = getUserData($user_id);
+        } else {
+          $error_message = 'Failed to upload profile picture. Please try again.';
+        }
+      }
+    }
+  } else if ($form_type === 'password_change') {
+    $current_password = $_POST['current_password'] ?? '';
+    $new_password = $_POST['new_password'] ?? '';
+    $confirm_password = $_POST['confirm_password'] ?? '';
+
+    if (empty($current_password) || empty($new_password) || empty($confirm_password)) {
+      $error_message = 'All password fields are required.';
+    } elseif ($new_password !== $confirm_password) {
+      $error_message = 'New password and confirmation do not match.';
+    } elseif (strlen($new_password) < 8) {
+      $error_message = 'New password must be at least 8 characters long.';
+    } else {
+      $user = fetchOne("SELECT password FROM users WHERE id = '$user_id'");
+      if ($user && password_verify($current_password, $user['password'])) {
+        $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+        query("UPDATE users SET password = '$hashed_password' WHERE id = '$user_id'");
+        $success_message = 'Password changed successfully!';
+      } else {
+        $error_message = 'Current password is incorrect.';
+      }
+    }
+  } else if ($form_type === 'address') {
+    $address = sanitizeInput($_POST['address'] ?? '');
+
+    query("
+      UPDATE user_profiles
+      SET address = '$address'
+      WHERE user_id = '$user_id'
+    ");
+
+    $success_message = 'Shipping address updated successfully!';
+    $user_data = getUserData($user_id);
+  }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +140,7 @@
   <link rel="stylesheet" href="css/colors.css" />
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/role.css" />
+  <script type="module" src="./js/profile.js"></script>
 </head>
 
 <body>
@@ -56,14 +188,12 @@
         </div>
       <?php endif; ?>
 
-      <!-- Personal Information Section -->
       <div class="section-card">
         <div class="section-card-header">
           <h2 class="section-card-title">Personal Information</h2>
         </div>
         <div class="section-card-body">
           <form method="POST" action="/profile.php" class="profile-form">
-            <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
             <input type="hidden" name="form_type" value="personal_info">
 
             <div class="form-row">
@@ -121,7 +251,7 @@
             <div class="form-group">
               <label class="form-label">Account Role</label>
               <div>
-                <span class="badge badge-active" style="text-transform: capitalize;">
+                <span class="badge badge-active" style="text-transform: uppercase; letter-spacing: 0.5px;">
                   <?php echo strtolower($user_data['role'] ?? 'Customer'); ?>
                 </span>
               </div>
@@ -129,7 +259,7 @@
 
             <div class="form-actions">
               <button type="submit" class="btn-primary">
-                <span class="material-symbols-outlined" style="font-size: 18px;">save</span>
+                <span class="material-symbols-outlined">save</span>
                 Save Changes
               </button>
             </div>
@@ -137,14 +267,12 @@
         </div>
       </div>
 
-      <!-- Profile Picture Section -->
       <div class="section-card">
         <div class="section-card-header">
           <h2 class="section-card-title">Profile Picture</h2>
         </div>
         <div class="section-card-body">
           <form method="POST" action="/profile.php" enctype="multipart/form-data" class="profile-form" id="pictureForm">
-            <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
             <input type="hidden" name="form_type" value="profile_picture">
 
             <div class="profile-picture-section">
@@ -160,26 +288,25 @@
                   Upload a new profile picture
                 </p>
                 <p style="margin-bottom: 16px; color: var(--subtext0); font-size: 13px;">
-                  JPG, PNG, GIF or WEBP. Max size 2MB.
+                  JPG, PNG. Max size 5MB.
                 </p>
                 <input
                   type="file"
                   id="profile_picture"
                   name="profile_picture"
-                  accept="image/jpeg,image/png,image/gif,image/webp"
-                  class="file-input"
-                  onchange="previewImage(event)">
+                  accept="image/jpeg,image/png"
+                  class="file-input">
                 <label for="profile_picture" class="btn-secondary">
-                  <span class="material-symbols-outlined" style="font-size: 18px;">upload</span>
+                  <span class="material-symbols-outlined">upload</span>
                   Choose File
                 </label>
-                <span id="fileName" style="margin-left: 12px; color: var(--subtext0); font-size: 14px;"></span>
+                <span id="fileName" style="color: var(--green); font-size: 14px;"></span>
               </div>
             </div>
 
             <div class="form-actions">
               <button type="submit" class="btn-primary" id="uploadBtn" disabled>
-                <span class="material-symbols-outlined" style="font-size: 18px;">save</span>
+                <span class="material-symbols-outlined">save</span>
                 Upload Picture
               </button>
             </div>
@@ -187,14 +314,12 @@
         </div>
       </div>
 
-      <!-- Change Password Section -->
       <div class="section-card">
         <div class="section-card-header">
           <h2 class="section-card-title">Change Password</h2>
         </div>
         <div class="section-card-body">
           <form method="POST" action="/profile.php" class="profile-form">
-            <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
             <input type="hidden" name="form_type" value="password_change">
 
             <div class="form-group">
@@ -206,7 +331,7 @@
                   name="current_password"
                   class="form-control"
                   required>
-                <button type="button" class="password-toggle" onclick="togglePassword('current_password')">
+                <button type="button" class="password-toggle">
                   <span class="material-symbols-outlined">visibility</span>
                 </button>
               </div>
@@ -223,13 +348,11 @@
                     class="form-control"
                     minlength="8"
                     required>
-                  <button type="button" class="password-toggle" onclick="togglePassword('new_password')">
+                  <button type="button" class="password-toggle">
                     <span class="material-symbols-outlined">visibility</span>
                   </button>
                 </div>
-                <small style="color: var(--subtext0); font-size: 12px; margin-top: 4px; display: block;">
-                  Minimum 8 characters
-                </small>
+                <span class="error-message" id="new-password-error"></span>
               </div>
 
               <div class="form-group">
@@ -242,16 +365,17 @@
                     class="form-control"
                     minlength="8"
                     required>
-                  <button type="button" class="password-toggle" onclick="togglePassword('confirm_password')">
+                  <button type="button" class="password-toggle">
                     <span class="material-symbols-outlined">visibility</span>
                   </button>
                 </div>
+                <span class="error-message" id="confirm-password-error"></span>
               </div>
             </div>
 
             <div class="form-actions">
               <button type="submit" class="btn-primary">
-                <span class="material-symbols-outlined" style="font-size: 18px;">lock_reset</span>
+                <span class="material-symbols-outlined">lock_reset</span>
                 Change Password
               </button>
             </div>
@@ -259,14 +383,12 @@
         </div>
       </div>
 
-      <!-- Address Section -->
       <div class="section-card">
         <div class="section-card-header">
           <h2 class="section-card-title">Shipping Address</h2>
         </div>
         <div class="section-card-body">
           <form method="POST" action="/profile.php" class="profile-form">
-            <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
             <input type="hidden" name="form_type" value="address">
 
             <div class="form-group">
@@ -284,7 +406,7 @@
 
             <div class="form-actions">
               <button type="submit" class="btn-primary">
-                <span class="material-symbols-outlined" style="font-size: 18px;">save</span>
+                <span class="material-symbols-outlined">save</span>
                 Save Address
               </button>
             </div>
