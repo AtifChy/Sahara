@@ -1,4 +1,4 @@
-import { ProductModule } from "./modules/product.js";
+import { Product } from "./product.js";
 
 (() => {
   const categoryBtns = document.querySelectorAll(".category-btn");
@@ -7,22 +7,29 @@ import { ProductModule } from "./modules/product.js";
   const productsGrid = document.getElementById("products-grid");
   const noProducts = document.getElementById("no-products");
 
-  // State
   let currentCategory = "all";
   let currentSort = "newest";
   let currentPriceRange = "all";
 
-  // read query param
-  const params = new URLSearchParams(window.location.search);
-  const initialQuery = (params.get("q") || "").trim();
-
-  // Early return if elements don't exist
-  if (
-    !productsGrid ||
-    !categoryBtns.length ||
-    typeof ProductModule === "undefined"
-  )
+  if (!productsGrid || !categoryBtns.length || typeof Product === "undefined")
     return;
+
+  // read search query param
+  const params = new URLSearchParams(window.location.search);
+  let initialQuery = (params.get("q") || "").trim();
+
+  const input = document.getElementById("search-input");
+
+  input.addEventListener("input", (e) => {
+    initialQuery = e.target.value.trim();
+    filterAndRender();
+  });
+
+  window.addEventListener("searchCleared", () => {
+    initialQuery = "";
+    input.value = "";
+    filterAndRender();
+  });
 
   // Initialize
   filterAndRender();
@@ -57,57 +64,24 @@ import { ProductModule } from "./modules/product.js";
   }
 
   function filterAndRender() {
-    let filtered = ProductModule.getAllProducts();
+    // Build filters object for API
+    const filters = {
+      category: currentCategory !== "all" ? currentCategory : undefined,
+      sort: currentSort,
+      priceRange: currentPriceRange !== "all" ? currentPriceRange : undefined,
+      search: initialQuery || undefined,
+    };
 
-    if (initialQuery) {
-      filtered = ProductModule.searchProducts(initialQuery);
-      const input = document.getElementById("search-input");
-      if (input) input.value = initialQuery;
-      localStorage.setItem("searchOpen", "true");
-    }
-
-    // Apply category filter
-    if (currentCategory !== "all") {
-      filtered = filtered.filter((p) => p.category === currentCategory);
-    }
-
-    // Apply price filter
-    if (currentPriceRange !== "all") {
-      filtered = filtered.filter((p) => {
-        const price = p.price;
-        switch (currentPriceRange) {
-          case "0-100":
-            return price < 100;
-          case "100-500":
-            return price >= 100 && price < 500;
-          case "500-1000":
-            return price >= 500 && price < 1000;
-          case "1000":
-            return price >= 1000;
-          default:
-            return true;
-        }
-      });
-    }
-
-    // Apply sorting
-    filtered.sort((a, b) => {
-      switch (currentSort) {
-        case "price-low":
-          return a.price - b.price;
-        case "price-high":
-          return b.price - a.price;
-        case "popular":
-          return b.rating - a.rating;
-        case "rating":
-          return b.rating - a.rating;
-        case "newest":
-        default:
-          return b.isNew - a.isNew || b.id - a.id;
-      }
-    });
-
-    renderFilteredProducts(filtered);
+    // Fetch products from API
+    Product.fetchProducts(
+      filters,
+      (products) => {
+        renderFilteredProducts(products);
+      },
+      (err) => {
+        console.error("Error fetching products:", err);
+      },
+    );
   }
 
   function renderFilteredProducts(productsToRender) {
@@ -122,7 +96,7 @@ import { ProductModule } from "./modules/product.js";
     productsGrid.innerHTML = "";
 
     productsToRender.forEach((product) => {
-      const card = ProductModule.createProductCard(product);
+      const card = Product.createProductCard(product);
       productsGrid.appendChild(card);
     });
   }

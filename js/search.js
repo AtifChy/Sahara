@@ -54,6 +54,7 @@
     if (event.key === "Escape" && isOpen) {
       if (searchInput.value) {
         searchInput.value = "";
+        window.dispatchEvent(new CustomEvent("searchCleared"));
       } else {
         toggleSearch(false);
         searchInput.blur();
