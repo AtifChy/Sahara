@@ -130,7 +130,6 @@
                 <th>Product</th>
                 <th>Category</th>
                 <th>Stock</th>
-                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -149,13 +148,6 @@
                     <span style="color: var(--red); font-weight: 600;">
                       <?php echo $product['stock']; ?> left
                     </span>
-                  </td>
-                  <td>
-                    <div class="table-actions">
-                      <button class="table-btn edit">
-                        <span class="material-symbols-outlined">edit</span>
-                      </button>
-                    </div>
                   </td>
                 </tr>
               <?php endforeach; ?>
@@ -182,55 +174,44 @@
           <p>No users yet</p>
         </div>
       <?php else: ?>
-        <table class="role-table">
-          <thead>
-            <tr>
-              <th>User</th>
-              <th>Phone</th>
-              <th>Role</th>
-              <th>Status</th>
-              <th>Joined</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php foreach ($recentUsers as $user): ?>
+          <table class="role-table">
+            <thead>
               <tr>
-                <td>
-                  <div class="user-info">
-                    <div class="user-avatar">
-                      <?php echo strtoupper(substr($user['first_name'] ?? 'U', 0, 1)); ?>
-                    </div>
-                    <div class="user-details">
-                      <div class="user-name"><?php echo $user['first_name'] ?? 'N/A'; ?></div>
-                      <div class="user-email"><?php echo $user['email']; ?></div>
-                    </div>
-                  </div>
-                </td>
-                <td><?php echo $user['phone'] ?? 'N/A'; ?></td>
-                <td>
-                  <span class="badge <?php echo strtolower($user['role']); ?>">
-                    <?php echo ucfirst(strtolower($user['role'])); ?>
-                  </span>
-                </td>
-                <td>
-                  <span class="badge <?php echo $user['is_active'] ? 'active' : 'inactive'; ?>">
-                    <?php echo $user['is_active'] ? 'Active' : 'Inactive'; ?>
-                  </span>
-                </td>
-                <td><?php echo date('M d, Y', strtotime($user['created_at'])); ?></td>
-                <td>
-                  <div class="table-actions">
-                    <button class="table-btn view">
-                      <span class="material-symbols-outlined">visibility</span>
-                    </button>
-                    <button class="table-btn edit">
-                      <span class="material-symbols-outlined">edit</span>
-                    </button>
-                  </div>
-                </td>
+                <th>User</th>
+                <th>Phone</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Joined</th>
               </tr>
-            <?php endforeach; ?>
+            </thead>
+            <tbody>
+              <?php foreach ($recentUsers as $user): ?>
+                <tr>
+                  <td>
+                    <div class="user-info">
+                      <div class="user-avatar">
+                        <?php echo strtoupper(substr($user['first_name'] ?? 'U', 0, 1)); ?>
+                      </div>
+                      <div class="user-details">
+                        <div class="user-name"><?php echo $user['first_name'] ?? 'N/A'; ?></div>
+                        <div class="user-email"><?php echo $user['email']; ?></div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><?php echo $user['phone'] ?? 'N/A'; ?></td>
+                  <td>
+                    <span class="badge <?php echo strtolower($user['role']); ?>">
+                      <?php echo ucfirst(strtolower($user['role'])); ?>
+                    </span>
+                  </td>
+                  <td>
+                    <span class="badge <?php echo $user['is_active'] ? 'active' : 'inactive'; ?>">
+                      <?php echo $user['is_active'] ? 'Active' : 'Inactive'; ?>
+                    </span>
+                  </td>
+                  <td><?php echo date('M d, Y', strtotime($user['created_at'])); ?></td>
+                </tr>
+              <?php endforeach; ?>
           </tbody>
         </table>
       <?php endif; ?>

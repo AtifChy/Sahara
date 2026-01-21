@@ -4,9 +4,23 @@ require_once __DIR__ . '/../../config/database.php';
 
 header('Content-Type: application/json');
 
-// Require admin authentication
-requireAuth();
-requireRole('ADMIN');
+// Check authentication for API endpoint
+if (!isLoggedIn()) {
+  echo json_encode([
+    'success' => false,
+    'message' => 'Not authenticated'
+  ]);
+  exit;
+}
+
+$user = getCurrentUser();
+if (!$user || $user['role'] !== 'ADMIN') {
+  echo json_encode([
+    'success' => false,
+    'message' => 'Unauthorized'
+  ]);
+  exit;
+}
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
   echo json_encode([

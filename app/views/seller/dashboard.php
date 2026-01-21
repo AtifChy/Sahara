@@ -143,31 +143,20 @@ $topProducts = fetchAll("
                 <th>Total</th>
                 <th>Status</th>
                 <th>Date</th>
-                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               <?php foreach ($recentOrders as $order): ?>
                 <tr>
-                  <td><strong>#<?php echo $order['id']; ?></strong></td>
-                  <td>
-                    <div class="user-info">
-                      <strong><?php echo $order['customer_name']; ?></strong>
-                      <small><?php echo $order['customer_email']; ?></small>
-                    </div>
-                  </td>
-                  <td><strong>$<?php echo $order['total']; ?></strong></td>
+                  <td>#<?php echo $order['id']; ?></td>
+                  <td><?php echo $order['customer_name']; ?></td>
+                  <td>৳<?php echo number_format($order['total'], 2); ?></td>
                   <td>
                     <span class="badge badge-<?php echo strtolower($order['status']); ?>">
                       <?php echo $order['status']; ?>
                     </span>
                   </td>
                   <td><?php echo date('M d, Y', strtotime($order['created_at'])); ?></td>
-                  <td>
-                    <button class="table-btn view" title="View Details">
-                      <span class="material-symbols-outlined">visibility</span>
-                    </button>
-                  </td>
                 </tr>
               <?php endforeach; ?>
             </tbody>
@@ -199,7 +188,6 @@ $topProducts = fetchAll("
                 <th>Category</th>
                 <th>Price</th>
                 <th>Stock</th>
-                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -219,11 +207,6 @@ $topProducts = fetchAll("
                     <span>
                       <?php echo $product['stock']; ?> left
                     </span>
-                  </td>
-                  <td>
-                    <button class="table-btn edit" title="Edit Product">
-                      <span class="material-symbols-outlined">edit</span>
-                    </button>
                   </td>
                 </tr>
               <?php endforeach; ?>
