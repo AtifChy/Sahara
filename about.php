@@ -272,7 +272,7 @@
         <div class="team-member">
           <div class="member-avatar">💻</div>
           <div class="member-name">Ekramul Hasib</div>
-          <div class="member-role"><Co-Founder></Co-Founder></div>
+          <div class="member-role">Co-Founder</div>
           <div class="member-bio">Expert in building scalable platforms. Leads the technical innovation at Sahara.</div>
         </div>
         
