@@ -355,8 +355,8 @@
             <h3>Address</h3>
             <p>
               Sahara E-Commerce<br>
-              123 Commerce Street<br>
-              Tech City, TC 12345<br>
+              Commerce Street<br>
+              Dhaka,Bangladesh 1205<br>
               Bangladesh
             </p>
           </div>
@@ -391,8 +391,8 @@
           <div>
             <h3>Business Hours</h3>
             <p>
-              Monday - Friday: 9:00 AM - 6:00 PM<br>
-              Saturday: 10:00 AM - 4:00 PM<br>
+              Sunday - Thursday: 9:00 AM - 6:00 PM<br>
+              Saturday: Closed<br>
               Sunday: Closed
             </p>
           </div>
@@ -423,7 +423,7 @@
                 type="text"
                 id="name"
                 name="name"
-                placeholder="John Doe"
+                placeholder="Ekramul Hasib"
                 required>
             </div>
             <div class="form-group">
@@ -432,7 +432,7 @@
                 type="email"
                 id="email"
                 name="email"
-                placeholder="john@example.com"
+                placeholder="ekramulhasib@gmail.com"
                 required>
             </div>
           </div>
@@ -444,7 +444,7 @@
                 type="tel"
                 id="phone"
                 name="phone"
-                placeholder="+880 1234-567890">
+                placeholder="+880 1766649703">
             </div>
             <div class="form-group">
               <label for="subject">Subject</label>
