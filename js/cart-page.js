@@ -90,8 +90,7 @@ import { CartModule } from "./modules/cart.js";
   // Handle checkout button
   if (checkoutBtn) {
     checkoutBtn.addEventListener("click", () => {
-      // TODO: Implement checkout flow
-      alert("Checkout functionality coming soon!");
+      window.location.href = "/checkout.php";
     });
   }
 
