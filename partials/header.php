@@ -13,11 +13,13 @@ $cartCount = getCartCount();
   </h1>
 
   <?php
-  function aria_current($page)
-  {
-    $current = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-    if ($current === '/') $current = '/index.php';
-    return $current === $page ? 'aria-current="page"' : '';
+  if (!function_exists('aria_current')) {
+    function aria_current($page)
+    {
+      $current = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+      if ($current === '/') $current = '/index.php';
+      return $current === $page ? 'aria-current="page"' : '';
+    }
   }
   ?>
 
