@@ -1,8 +1,9 @@
 <?php
-require_once '../includes/auth.php';
+require_once __DIR__ . '/../app/models/Auth.php';
+require_once __DIR__ . '/../app/config/database.php';
 
 if (isLoggedIn()) {
-  header('Location: ../index.php');
+  header('Location: /index.php');
   exit;
 }
 
@@ -120,8 +121,8 @@ if ($step === 'reset' && !empty($reset_token)) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sahara | Forgot Password</title>
-  <link rel="icon" href="../assets/favicon.ico" />
-  <link rel="stylesheet" href="../css/auth.css" />
+  <link rel="icon" href="/assets/favicon.ico" />
+  <link rel="stylesheet" href="/css/auth.css" />
 </head>
 
 <body>

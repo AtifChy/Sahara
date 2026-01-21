@@ -1,6 +1,6 @@
 <?php
-require_once 'includes/auth.php';
-require_once 'includes/cart-functions.php';
+require_once __DIR__ . '/app/models/Auth.php';
+require_once __DIR__ . '/app/models/Cart.php';
 
 requireAuth('/auth/login.php');
 
@@ -30,7 +30,7 @@ $user = getCurrentUser();
 </head>
 
 <body>
-  <?php include 'partials/header.php'; ?>
+  <?php include __DIR__ . '/app/views/partials/header.php'; ?>
 
   <main class="checkout-page">
     <a href="/cart.php" class="back-to-cart">
@@ -148,7 +148,7 @@ $user = getCurrentUser();
     </div>
   </main>
 
-  <?php include 'partials/footer.html'; ?>
+  <?php include __DIR__ . '/app/views/partials/footer.html'; ?>
 
   <script>
     document.getElementById('checkout-form').addEventListener('submit', function(e) {

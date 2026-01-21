@@ -1,5 +1,5 @@
 <?php
-require_once 'includes/cart-functions.php';
+require_once __DIR__ . '/app/models/Cart.php';
 session_start();
 
 $cartItems = getCartItemsWithDetails();
@@ -18,7 +18,7 @@ $totals = getCartTotals();
 </head>
 
 <body>
-  <?php include 'partials/header.php'; ?>
+  <?php include __DIR__ . '/app/views/partials/header.php'; ?>
 
   <main class="cart-page">
     <div class="cart-container">
@@ -121,7 +121,7 @@ $totals = getCartTotals();
     </div>
   </main>
 
-  <?php include 'partials/footer.html'; ?>
+  <?php include __DIR__ . '/app/views/partials/footer.html'; ?>
 
   <script type="module" src="/js/cart-page.js"></script>
 </body>

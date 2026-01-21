@@ -1,6 +1,6 @@
 <?php
-require_once '../includes/db.php';
-require_once '../includes/auth.php';
+require_once __DIR__ . '/../app/config/database.php';
+require_once __DIR__ . '/../app/models/Auth.php';
 
 if (!isLoggedIn() || !in_array($_SESSION['user_role'], ['SELLER', 'ADMIN'])) {
   header('Location: /index.php');
@@ -143,7 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-  <?php include '../partials/header.php'; ?>
+  <?php include __DIR__ . '/../app/views/partials/header.php'; ?>
 
   <div class="form-container">
     <div class="form-content">

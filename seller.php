@@ -1,6 +1,6 @@
 <?php
-require_once 'includes/db.php';
-require_once 'includes/auth.php';
+require_once __DIR__ . '/app/config/database.php';
+require_once __DIR__ . '/app/models/Auth.php';
 
 // Check if user is seller or admin
 if (!isLoggedIn() || !in_array($_SESSION['user_role'], ['SELLER', 'ADMIN'])) {
@@ -30,7 +30,7 @@ if (!in_array($page, $allowed_pages)) {
 </head>
 
 <body>
-  <?php include 'partials/header.php'; ?>
+  <?php include __DIR__ . '/app/views/partials/header.php'; ?>
 
   <div class="role-layout seller-layout">
     <?php
@@ -65,7 +65,7 @@ if (!in_array($page, $allowed_pages)) {
       </nav>
     </aside>
 
-    <?php include "./seller/{$page}.php"; ?>
+    <?php include __DIR__ . "/app/views/seller/{$page}.php"; ?>
   </div>
 </body>
 

@@ -1,6 +1,6 @@
 <?php
-require_once 'includes/auth.php';
-require_once 'includes/order-functions.php';
+require_once __DIR__ . '/app/models/Auth.php';
+require_once __DIR__ . '/app/models/Order.php';
 
 // Require authentication
 requireAuth('/auth/login.php');
@@ -40,7 +40,7 @@ unset($_SESSION['last_order_id']);
 </head>
 
 <body>
-  <?php include 'partials/header.php'; ?>
+  <?php include __DIR__ . '/app/views/partials/header.php'; ?>
 
   <main class="confirmation-page">
     <div class="confirmation-card">
@@ -119,7 +119,7 @@ unset($_SESSION['last_order_id']);
     </div>
   </main>
 
-  <?php include 'partials/footer.html'; ?>
+  <?php include __DIR__ . '/app/views/partials/footer.html'; ?>
 </body>
 
 </html>

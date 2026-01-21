@@ -1,6 +1,6 @@
 <?php
-require_once 'includes/db.php';
-require_once 'includes/auth.php';
+require_once __DIR__ . '/app/config/database.php';
+require_once __DIR__ . '/app/models/Auth.php';
 
 // Check if user is admin
 if (!isLoggedIn() || $_SESSION['user_role'] !== 'ADMIN') {
@@ -71,7 +71,7 @@ $recentUsers = fetchAll("
 </head>
 
 <body>
-  <?php include 'partials/header.php'; ?>
+  <?php include __DIR__ . '/app/views/partials/header.php'; ?>
 
   <div class="role-layout">
     <!-- Sidebar Navigation -->
@@ -115,7 +115,7 @@ $recentUsers = fetchAll("
       </nav>
     </aside>
 
-    <?php include "./admin/{$page}.php" ?>
+    <?php include __DIR__ . "/app/views/admin/{$page}.php" ?>
   </div>
 </body>
 

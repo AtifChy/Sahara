@@ -1,6 +1,6 @@
 <?php
-require_once 'includes/auth.php';
-require_once 'includes/order-functions.php';
+require_once __DIR__ . '/app/models/Auth.php';
+require_once __DIR__ . '/app/models/Order.php';
 
 requireAuth('/auth/login.php');
 
@@ -21,7 +21,7 @@ $orders = getOrdersByUser($userId);
 </head>
 
 <body>
-  <?php include 'partials/header.php'; ?>
+  <?php include __DIR__ . '/app/views/partials/header.php'; ?>
 
   <main class="orders-page">
     <h1>My Orders</h1>
@@ -107,7 +107,7 @@ $orders = getOrdersByUser($userId);
     <?php endif; ?>
   </main>
 
-  <?php include 'partials/footer.html'; ?>
+  <?php include __DIR__ . '/app/views/partials/footer.html'; ?>
 
   <script>
     function cancelOrder(orderId) {

@@ -334,7 +334,7 @@
 </head>
 
 <body>
-  <?php include 'partials/header.php'; ?>
+  <?php include __DIR__ . '/app/views/partials/header.php'; ?>
 
   <main>
     <!-- Hero Section -->
@@ -544,7 +544,7 @@
 
   </main>
 
-  <?php include 'partials/footer.html'; ?>
+  <?php include __DIR__ . '/app/views/partials/footer.html'; ?>
 
   <script>
     // FAQ Toggle

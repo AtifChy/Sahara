@@ -1,8 +1,3 @@
 <?php
-
-require_once '../includes/auth.php';
-
-logout();
-
-header('Location: ../auth/login.php');
-exit;
+// Proxy to new MVC location
+require_once __DIR__ . '/../app/controllers/auth/LogoutController.php';

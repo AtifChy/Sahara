@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <?php include 'partials/header.php'; ?>
+  <?php include __DIR__ . '/app/views/partials/header.php'; ?>
 
   <main class="shop-page">
     <aside class="shop-sidebar">
@@ -68,7 +68,7 @@
     </section>
   </main>
 
-  <?php include 'partials/footer.html'; ?>
+  <?php include __DIR__ . '/app/views/partials/footer.html'; ?>
 </body>
 
 </html>

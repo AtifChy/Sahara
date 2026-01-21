@@ -1,5 +1,5 @@
 <?php
-require_once 'includes/db.php';
+require_once __DIR__ . '/app/config/database.php';
 
 // Get product ID from URL
 $product_id = $_GET['id'] ?? '';
@@ -70,7 +70,7 @@ function renderStarsHTML($rating)
 </head>
 
 <body>
-  <?php include 'partials/header.php'; ?>
+  <?php include __DIR__ . '/app/views/partials/header.php'; ?>
 
   <main class="product-detail-page">
     <nav class="breadcrumb">
@@ -230,7 +230,7 @@ function renderStarsHTML($rating)
     <?php endif; ?>
   </main>
 
-  <?php include 'partials/footer.html'; ?>
+  <?php include __DIR__ . '/app/views/partials/footer.html'; ?>
 </body>
 
 </html>

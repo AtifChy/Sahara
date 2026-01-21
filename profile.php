@@ -1,6 +1,6 @@
 <?php
-require_once 'includes/db.php';
-require_once 'includes/auth.php';
+require_once __DIR__ . '/app/config/database.php';
+require_once __DIR__ . '/app/models/Auth.php';
 
 if (!isLoggedIn()) {
   header('Location: /auth/login.php');
