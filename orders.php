@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/app/models/Auth.php';
-require_once __DIR__ . '/app/models/Order.php';
+require_once __DIR__ . '/models/Auth.php';
+require_once __DIR__ . '/models/Order.php';
 
-requireAuth('/auth/login.php');
+requireAuth('/auth.php?page=login');
 
 $userId = $_SESSION['user_id'];
 $orders = getOrdersByUser($userId);
@@ -15,13 +15,13 @@ $orders = getOrdersByUser($userId);
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Orders | Sahara</title>
-  <link rel="icon" href="assets/favicon.ico" />
-  <link rel="stylesheet" href="css/main.css" />
-  <link rel="stylesheet" href="css/checkout.css" />
+  <link rel="icon" href="views/assets/favicon.ico" />
+  <link rel="stylesheet" href="views/css/main.css" />
+  <link rel="stylesheet" href="views/css/checkout.css" />
 </head>
 
 <body>
-  <?php include __DIR__ . '/app/views/partials/header.php'; ?>
+  <?php include __DIR__ . '/views/partials/header.php'; ?>
 
   <main class="orders-page">
     <h1>My Orders</h1>
@@ -71,7 +71,7 @@ $orders = getOrdersByUser($userId);
               <div class="order-items">
                 <?php foreach ($orderDetails['items'] as $item): ?>
                   <div class="order-item">
-                    <img src="<?php echo $item['image'] ?: '/assets/product_placeholder.svg'; ?>"
+                    <img src="<?php echo $item['image'] ?: '/views/assets/product_placeholder.svg'; ?>"
                       alt="<?php echo $item['title']; ?>" />
                     <div class="order-item-details">
                       <div class="order-item-title"><?php echo $item['title']; ?></div>
@@ -107,7 +107,7 @@ $orders = getOrdersByUser($userId);
     <?php endif; ?>
   </main>
 
-  <?php include __DIR__ . '/app/views/partials/footer.html'; ?>
+  <?php include __DIR__ . '/views/partials/footer.html'; ?>
 
   <script>
     function cancelOrder(orderId) {
@@ -116,7 +116,7 @@ $orders = getOrdersByUser($userId);
       }
 
       // Send cancellation request
-      fetch('/cancel-order.php', {
+      fetch('/controllers/shop/CancelOrderController.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',

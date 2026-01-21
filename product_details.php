@@ -1,7 +1,6 @@
 <?php
-require_once __DIR__ . '/app/config/database.php';
+require_once __DIR__ . '/models/Product.php';
 
-// Get product ID from URL
 $product_id = $_GET['id'] ?? '';
 
 if (empty($product_id) || !is_numeric($product_id)) {
@@ -11,32 +10,15 @@ if (empty($product_id) || !is_numeric($product_id)) {
 
 $product_id = intval($product_id);
 
-// Fetch product with seller info
-$product = fetchOne("
-  SELECT p.*, 
-         CONCAT(up.first_name, ' ', COALESCE(up.last_name, '')) as seller_name
-  FROM products p
-  LEFT JOIN users u ON p.seller_id = u.id
-  LEFT JOIN user_profiles up ON u.id = up.user_id
-  WHERE p.id = $product_id
-");
+$product = getProductById($product_id);
 
 if (!$product) {
   header('Location: /shop.php?error=not_found');
   exit;
 }
 
-// Fetch related products (same category)
-$relatedProducts = fetchAll("
-  SELECT * FROM products
-  WHERE category = '{$product['category']}'
-    AND id != $product_id
-    AND stock > 0
-  ORDER BY rating DESC, created_at DESC
-  LIMIT 4
-");
+$relatedProducts = getRelatedProducts($product['category'], $product_id, 4);
 
-// Helper function for stars
 function renderStarsHTML($rating)
 {
   $output = '';
@@ -64,13 +46,13 @@ function renderStarsHTML($rating)
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title><?php echo $product['title']; ?> | Sahara</title>
-  <link rel="icon" href="assets/favicon.ico">
-  <link rel="stylesheet" href="css/detail.css" />
-  <script type="module" src="js/product-detail.js"></script>
+  <link rel="icon" href="views/assets/favicon.ico">
+  <link rel="stylesheet" href="views/css/detail.css" />
+  <script type="module" src="views/js/product-detail.js"></script>
 </head>
 
 <body>
-  <?php include __DIR__ . '/app/views/partials/header.php'; ?>
+  <?php include __DIR__ . '/views/partials/header.php'; ?>
 
   <main class="product-detail-page">
     <nav class="breadcrumb">
@@ -88,7 +70,7 @@ function renderStarsHTML($rating)
             <span class="new-badge">New</span>
           <?php endif; ?>
           <img
-            src="<?php echo !empty($product['image']) ? $product['image'] : '/assets/product_placeholder.svg'; ?>"
+            src="<?php echo !empty($product['image']) ? $product['image'] : '/views/assets/product_placeholder.svg'; ?>"
             alt="<?php echo $product['title']; ?>" />
         </div>
       </div>
@@ -103,10 +85,8 @@ function renderStarsHTML($rating)
           <?php endif; ?>
         </div>
 
-        <!-- Product Title -->
         <h1 class="product-title"><?php echo $product['title']; ?></h1>
 
-        <!-- Rating -->
         <div class="product-rating-section">
           <div class="rating-stars">
             <?php echo renderStarsHTML($product['rating']); ?>
@@ -160,7 +140,6 @@ function renderStarsHTML($rating)
           <?php endif; ?>
         </div>
 
-        <!-- Seller Info -->
         <div class="seller-info">
           <div class="seller-details">
             <span class="material-symbols-outlined">storefront</span>
@@ -171,7 +150,6 @@ function renderStarsHTML($rating)
           </div>
         </div>
 
-        <!-- Product Details -->
         <div class="product-details-box">
           <h3>Product Details</h3>
           <div class="detail-row">
@@ -190,7 +168,6 @@ function renderStarsHTML($rating)
       </div>
     </section>
 
-    <!-- Related Products Section -->
     <?php if (!empty($relatedProducts)): ?>
       <section class="related-products">
         <h2>You May Also Like</h2>
@@ -206,7 +183,7 @@ function renderStarsHTML($rating)
               </button>
 
               <div class="product-image">
-                <img src="<?php echo $relProduct['image'] ?: '/assets/placeholder.png'; ?>" alt="<?php echo $relProduct['title']; ?>" />
+                <img src="<?php echo $relProduct['image'] ?: '/views/assets/placeholder.png'; ?>" alt="<?php echo $relProduct['title']; ?>" />
               </div>
 
               <h3><?php echo $relProduct['title']; ?></h3>
@@ -230,7 +207,7 @@ function renderStarsHTML($rating)
     <?php endif; ?>
   </main>
 
-  <?php include __DIR__ . '/app/views/partials/footer.html'; ?>
+  <?php include __DIR__ . '/views/partials/footer.html'; ?>
 </body>
 
 </html>

@@ -5,13 +5,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sahara | Shop</title>
-  <link rel="icon" href="assets/favicon.ico">
-  <link rel="stylesheet" href="css/main.css" />
-  <script type="module" src="js/shop.js"></script>
+  <link rel="icon" href="views/assets/favicon.ico">
+  <link rel="stylesheet" href="views/css/main.css" />
+  <script type="module" src="views/js/shop.js"></script>
 </head>
 
 <body>
-  <?php include __DIR__ . '/app/views/partials/header.php'; ?>
+  <?php include __DIR__ . '/views/partials/header.php'; ?>
 
   <main class="shop-page">
     <aside class="shop-sidebar">
@@ -68,7 +68,7 @@
     </section>
   </main>
 
-  <?php include __DIR__ . '/app/views/partials/footer.html'; ?>
+  <?php include __DIR__ . '/views/partials/footer.html'; ?>
 </body>
 
 </html>

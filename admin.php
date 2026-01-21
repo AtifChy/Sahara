@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/app/config/database.php';
-require_once __DIR__ . '/app/models/Auth.php';
+require_once __DIR__ . '/controllers/db.php';
+require_once __DIR__ . '/models/Auth.php';
 
 // Check if user is admin
 if (!isLoggedIn() || $_SESSION['user_role'] !== 'ADMIN') {
@@ -65,13 +65,13 @@ $recentUsers = fetchAll("
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sahara | Admin</title>
-  <link rel="icon" href="assets/favicon.ico">
-  <link rel="stylesheet" href="css/main.css" />
-  <link rel="stylesheet" href="css/role.css" />
+  <link rel="icon" href="views/assets/favicon.ico">
+  <link rel="stylesheet" href="views/css/main.css" />
+  <link rel="stylesheet" href="views/css/role.css" />
 </head>
 
 <body>
-  <?php include __DIR__ . '/app/views/partials/header.php'; ?>
+  <?php include __DIR__ . '/views/partials/header.php'; ?>
 
   <div class="role-layout">
     <!-- Sidebar Navigation -->
@@ -115,7 +115,7 @@ $recentUsers = fetchAll("
       </nav>
     </aside>
 
-    <?php include __DIR__ . "/app/views/admin/{$page}.php" ?>
+    <?php include __DIR__ . "/views/admin/{$page}.php" ?>
   </div>
 </body>
 

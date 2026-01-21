@@ -1,29 +1,24 @@
 <?php
-require_once __DIR__ . '/app/models/Auth.php';
-require_once __DIR__ . '/app/models/Order.php';
+require_once __DIR__ . '/models/Auth.php';
+require_once __DIR__ . '/models/Order.php';
 
-// Require authentication
-requireAuth('/auth/login.php');
+requireAuth('/auth.php?page=login');
 
-// Get order ID from URL
 $orderId = isset($_GET['order_id']) ? (int)$_GET['order_id'] : 0;
 $userId = $_SESSION['user_id'];
 
-// Validate order ID and ownership
 if (!$orderId || !isset($_SESSION['last_order_id']) || $_SESSION['last_order_id'] != $orderId) {
-    header('Location: /orders.php');
-    exit;
+  header('Location: /orders.php');
+  exit;
 }
 
-// Get order details
 $order = getOrderDetails($orderId, $userId);
 
 if (!$order) {
-    header('Location: /orders.php');
-    exit;
+  header('Location: /orders.php');
+  exit;
 }
 
-// Clear last order ID from session
 unset($_SESSION['last_order_id']);
 ?>
 
@@ -34,13 +29,13 @@ unset($_SESSION['last_order_id']);
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Order Confirmation | Sahara</title>
-  <link rel="icon" href="assets/favicon.ico" />
-  <link rel="stylesheet" href="css/main.css" />
-  <link rel="stylesheet" href="css/checkout.css" />
+  <link rel="icon" href="views/assets/favicon.ico" />
+  <link rel="stylesheet" href="views/css/main.css" />
+  <link rel="stylesheet" href="views/css/checkout.css" />
 </head>
 
 <body>
-  <?php include __DIR__ . '/app/views/partials/header.php'; ?>
+  <?php include __DIR__ . '/views/partials/header.php'; ?>
 
   <main class="confirmation-page">
     <div class="confirmation-card">
@@ -94,7 +89,7 @@ unset($_SESSION['last_order_id']);
 
         <?php foreach ($order['items'] as $item): ?>
           <div class="order-item">
-            <img src="<?php echo $item['image'] ?: '/assets/product_placeholder.svg'; ?>"
+            <img src="<?php echo $item['image'] ?: '/views/assets/product_placeholder.svg'; ?>"
               alt="<?php echo $item['title']; ?>" />
             <div class="order-item-details">
               <div class="order-item-title"><?php echo $item['title']; ?></div>
@@ -119,7 +114,7 @@ unset($_SESSION['last_order_id']);
     </div>
   </main>
 
-  <?php include __DIR__ . '/app/views/partials/footer.html'; ?>
+  <?php include __DIR__ . '/views/partials/footer.html'; ?>
 </body>
 
 </html>

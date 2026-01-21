@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/app/models/Auth.php';
-require_once __DIR__ . '/app/models/Cart.php';
+require_once __DIR__ . '/models/Auth.php';
+require_once __DIR__ . '/models/Cart.php';
 
-requireAuth('/auth/login.php');
+requireAuth('/auth.php?page=login');
 
 $cartItems = getCartItemsWithDetails();
 $totals = getCartTotals();
@@ -24,13 +24,13 @@ $user = getCurrentUser();
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Checkout | Sahara</title>
-  <link rel="icon" href="assets/favicon.ico" />
-  <link rel="stylesheet" href="css/main.css" />
-  <link rel="stylesheet" href="css/checkout.css" />
+  <link rel="icon" href="views/assets/favicon.ico" />
+  <link rel="stylesheet" href="views/css/main.css" />
+  <link rel="stylesheet" href="views/css/checkout.css" />
 </head>
 
 <body>
-  <?php include __DIR__ . '/app/views/partials/header.php'; ?>
+  <?php include __DIR__ . '/views/partials/header.php'; ?>
 
   <main class="checkout-page">
     <a href="/cart.php" class="back-to-cart">
@@ -51,7 +51,7 @@ $user = getCurrentUser();
           </div>
         <?php endif; ?>
 
-        <form action="/checkout-handler.php" method="POST" id="checkout-form">
+        <form action="/controllers/shop/CheckoutController.php" method="POST" id="checkout-form">
           <div class="form-section">
             <h3>Contact Information</h3>
 
@@ -112,7 +112,7 @@ $user = getCurrentUser();
         <div class="summary-items">
           <?php foreach ($cartItems as $item): ?>
             <div class="summary-item">
-              <img src="<?php echo $item['image'] ?: '/assets/product_placeholder.svg'; ?>"
+              <img src="<?php echo $item['image'] ?: '/views/assets/product_placeholder.svg'; ?>"
                 alt="<?php echo $item['title']; ?>" />
               <div class="summary-item-details">
                 <div class="summary-item-title"><?php echo $item['title']; ?></div>
@@ -148,7 +148,7 @@ $user = getCurrentUser();
     </div>
   </main>
 
-  <?php include __DIR__ . '/app/views/partials/footer.html'; ?>
+  <?php include __DIR__ . '/views/partials/footer.html'; ?>
 
   <script>
     document.getElementById('checkout-form').addEventListener('submit', function(e) {

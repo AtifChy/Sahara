@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/app/models/Cart.php';
+require_once __DIR__ . '/models/Cart.php';
 session_start();
 
 $cartItems = getCartItemsWithDetails();
@@ -13,12 +13,12 @@ $totals = getCartTotals();
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cart | Sahara</title>
-  <link rel="icon" href="assets/favicon.ico" />
-  <link rel="stylesheet" href="css/main.css" />
+  <link rel="icon" href="views/assets/favicon.ico" />
+  <link rel="stylesheet" href="views/css/main.css" />
 </head>
 
 <body>
-  <?php include __DIR__ . '/app/views/partials/header.php'; ?>
+  <?php include __DIR__ . '/views/partials/header.php'; ?>
 
   <main class="cart-page">
     <div class="cart-container">
@@ -37,7 +37,7 @@ $totals = getCartTotals();
             <?php foreach ($cartItems as $item): ?>
               <div class="cart-item" data-product-id="<?php echo $item['id']; ?>">
                 <div class="item-image">
-                  <img src="<?php echo $item['image'] ?: '/assets/product_placeholder.svg'; ?>"
+                  <img src="<?php echo $item['image'] ?: '/views/assets/product_placeholder.svg'; ?>"
                     alt="<?php echo $item['title']; ?>" />
                 </div>
 
@@ -121,9 +121,9 @@ $totals = getCartTotals();
     </div>
   </main>
 
-  <?php include __DIR__ . '/app/views/partials/footer.html'; ?>
+  <?php include __DIR__ . '/views/partials/footer.html'; ?>
 
-  <script type="module" src="/js/cart-page.js"></script>
+  <script type="module" src="/views/js/cart-page.js"></script>
 </body>
 
 </html>

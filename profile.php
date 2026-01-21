@@ -1,132 +1,21 @@
 <?php
-require_once __DIR__ . '/app/config/database.php';
-require_once __DIR__ . '/app/models/Auth.php';
+require_once __DIR__ . '/models/Auth.php';
+require_once __DIR__ . '/models/User.php';
 
 if (!isLoggedIn()) {
-  header('Location: /auth/login.php');
+  header('Location: /auth.php?page=login');
   exit;
 }
 
 $user_id = $_SESSION['user_id'];
-$success_message = '';
-$error_message = '';
+
+$success_message = $_SESSION['success_message'] ?? '';
+$error_message = $_SESSION['error_message'] ?? '';
+
+unset($_SESSION['success_message']);
+unset($_SESSION['error_message']);
 
 $user_data = getUserData($user_id);
-
-function getUserData($user_id)
-{
-  return fetchOne("
-    SELECT
-      u.id,
-      u.email,
-      u.role,
-      p.first_name,
-      p.last_name,
-      p.phone,
-      p.gender,
-      p.address,
-      p.picture
-    FROM users u
-    JOIN user_profiles p ON u.id = p.user_id
-    WHERE u.id = {$user_id}
-  ");
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $form_type = $_POST['form_type'] ?? '';
-
-  if ($form_type === 'personal_info') {
-    $first_name = sanitizeInput($_POST['first_name'] ?? '');
-    $last_name = sanitizeInput($_POST['last_name'] ?? '');
-    $phone = sanitizeInput($_POST['phone'] ?? '');
-
-    if (empty($first_name)) {
-      $error_message = 'First name is required';
-    } elseif (!empty($phone) && !validatePhone($phone)) {
-      $error_message = 'Invalid phone number format';
-    } else {
-      $result = query("
-          UPDATE user_profiles
-          SET first_name = '$first_name',
-              last_name = '$last_name',
-              phone = '$phone'
-          WHERE user_id = '$user_id'
-        ");
-
-      if ($result) {
-        $_SESSION['user_fname'] = $first_name;
-        $_SESSION['user_lname'] = $last_name;
-        $success_message = 'Personal information updated successfully!';
-        $user_data = getUserData($user_id);
-      } else {
-        $error_message = 'Failed to update personal information. Please try again.';
-      }
-    }
-  } else if ($form_type === 'profile_picture') {
-    if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
-      $file = $_FILES['profile_picture'];
-      $allowed_types = ['image/jpeg', 'image/png'];
-      $max_size = 5 * 1024 * 1024;
-
-      if (!in_array($file['type'], $allowed_types)) {
-        $error_message = 'Invalid file type. Only JPG and PNG are allowed.';
-      } elseif ($file['size'] > $max_size) {
-        $error_message = 'File size exceeds the maximum limit of 5MB.';
-      } else {
-        $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
-        $new_filename = 'user_' . uniqid() . '.' . $ext;
-        $upload_path = '/uploads/avatars/' . $new_filename;
-
-        if (move_uploaded_file($file['tmp_name'], $upload_path)) {
-          if (!empty($user_data['picture']) && file_exists($user_data['picture'])) {
-            unlink($user_data['picture']);
-          }
-          query("
-            UPDATE user_profiles
-            SET picture = '$new_filename'
-            WHERE user_id = '$user_id'
-          ");
-          $success_message = 'Profile picture updated successfully!';
-          $user_data = getUserData($user_id);
-        } else {
-          $error_message = 'Failed to upload profile picture. Please try again.';
-        }
-      }
-    }
-  } else if ($form_type === 'password_change') {
-    $current_password = $_POST['current_password'] ?? '';
-    $new_password = $_POST['new_password'] ?? '';
-    $confirm_password = $_POST['confirm_password'] ?? '';
-
-    if (empty($current_password) || empty($new_password) || empty($confirm_password)) {
-      $error_message = 'All password fields are required.';
-    } elseif ($new_password !== $confirm_password) {
-      $error_message = 'New password and confirmation do not match.';
-    } elseif (strlen($new_password) < 8) {
-      $error_message = 'New password must be at least 8 characters long.';
-    } else {
-      $user = fetchOne("SELECT password FROM users WHERE id = '$user_id'");
-      if ($user && password_verify($current_password, $user['password'])) {
-        $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
-        query("UPDATE users SET password = '$hashed_password' WHERE id = '$user_id'");
-        $success_message = 'Password changed successfully!';
-      } else {
-        $error_message = 'Current password is incorrect.';
-      }
-    }
-  } else if ($form_type === 'address') {
-    $address = sanitizeInput($_POST['address'] ?? '');
-
-    query("
-      UPDATE user_profiles
-      SET address = '$address'
-      WHERE user_id = '$user_id'
-    ");
-
-    $success_message = 'Shipping address updated successfully!';
-    $user_data = getUserData($user_id);
-  }
-}
 ?>
 
 <!DOCTYPE html>
@@ -136,15 +25,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Profile - Sahara</title>
-  <link rel="icon" href="assets/favicon.ico">
-  <link rel="stylesheet" href="css/colors.css" />
-  <link rel="stylesheet" href="css/main.css" />
-  <link rel="stylesheet" href="css/role.css" />
-  <script type="module" src="./js/profile.js"></script>
+  <link rel="icon" href="views/assets/favicon.ico">
+  <link rel="stylesheet" href="views/css/colors.css" />
+  <link rel="stylesheet" href="views/css/main.css" />
+  <link rel="stylesheet" href="views/css/role.css" />
+  <script type="module" src="./views/js/profile.js"></script>
 </head>
 
 <body>
-  <?php include 'partials/header.php'; ?>
+  <?php include __DIR__ . '/views/partials/header.php'; ?>
 
   <div class="role-layout">
     <aside class="role-sidebar">
@@ -193,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <h2 class="section-card-title">Personal Information</h2>
         </div>
         <div class="section-card-body">
-          <form method="POST" action="/profile.php" class="profile-form">
+          <form method="POST" action="/controllers/shop/ProfileController.php" class="profile-form">
             <input type="hidden" name="form_type" value="personal_info">
 
             <div class="form-row">
@@ -272,13 +161,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <h2 class="section-card-title">Profile Picture</h2>
         </div>
         <div class="section-card-body">
-          <form method="POST" action="/profile.php" enctype="multipart/form-data" class="profile-form" id="pictureForm">
+          <form method="POST" action="/controllers/shop/ProfileController.php" enctype="multipart/form-data" class="profile-form" id="pictureForm">
             <input type="hidden" name="form_type" value="profile_picture">
 
             <div class="profile-picture-section">
               <div class="avatar-preview">
-                <?php if (!empty($user_data['picture']) && file_exists($user_data['picture'])): ?>
-                  <img src="/<?php echo $user_data['picture']; ?>" alt="Profile Picture" id="avatarImage">
+                <?php if (!empty($user_data['picture'])): ?>
+                  <img src="/uploads/avatars/<?php echo $user_data['picture']; ?>" alt="Profile Picture" id="avatarImage">
                 <?php else: ?>
                   <span class="material-symbols-outlined" id="avatarIcon">account_circle</span>
                 <?php endif; ?>
@@ -319,7 +208,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <h2 class="section-card-title">Change Password</h2>
         </div>
         <div class="section-card-body">
-          <form method="POST" action="/profile.php" class="profile-form">
+          <form method="POST" action="/controllers/shop/ProfileController.php" class="profile-form">
             <input type="hidden" name="form_type" value="password_change">
 
             <div class="form-group">
@@ -388,7 +277,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <h2 class="section-card-title">Shipping Address</h2>
         </div>
         <div class="section-card-body">
-          <form method="POST" action="/profile.php" class="profile-form">
+          <form method="POST" action="/controllers/shop/ProfileController.php" class="profile-form">
             <input type="hidden" name="form_type" value="address">
 
             <div class="form-group">

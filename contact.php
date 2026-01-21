@@ -7,8 +7,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sahara | Contact</title>
-  <link rel="icon" href="assets/favicon.ico">
-  <link rel="stylesheet" href="css/main.css" />
+  <link rel="icon" href="views/assets/favicon.ico">
+  <link rel="stylesheet" href="views/css/main.css" />
   <style>
     .contact-hero {
       background: linear-gradient(135deg, var(--mauve) 0%, var(--red) 100%);
@@ -334,7 +334,7 @@
 </head>
 
 <body>
-  <?php include __DIR__ . '/app/views/partials/header.php'; ?>
+  <?php include __DIR__ . '/views/partials/header.php'; ?>
 
   <main>
     <!-- Hero Section -->
@@ -544,7 +544,7 @@
 
   </main>
 
-  <?php include __DIR__ . '/app/views/partials/footer.html'; ?>
+  <?php include __DIR__ . '/views/partials/footer.html'; ?>
 
   <script>
     // FAQ Toggle
