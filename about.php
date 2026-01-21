@@ -241,19 +241,19 @@
       <h2>By The Numbers</h2>
       <div class="stats-grid">
         <div class="stat-item">
-          <div class="stat-number">50K+</div>
+          <div class="stat-number">10k+</div>
           <div class="stat-label">Happy Customers</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number">10K+</div>
+          <div class="stat-number">1000+</div>
           <div class="stat-label">Products</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number">150+</div>
+          <div class="stat-number">100+</div>
           <div class="stat-label">Sellers</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number">99.5%</div>
+          <div class="stat-number">95.5%</div>
           <div class="stat-label">Satisfaction Rate</div>
         </div>
       </div>
@@ -267,27 +267,16 @@
           <div class="member-avatar">👔</div>
           <div class="member-name">Atif Chowdhury</div>
           <div class="member-role">Founder & CEO</div>
-          <div class="member-bio">Visionary leader with 10+ years of e-commerce experience. Passionate about creating exceptional customer experiences.</div>
+          <div class="member-bio">Visionary leader with 2+ years of e-commerce experience. Passionate about creating exceptional customer experiences.</div>
         </div>
         <div class="team-member">
           <div class="member-avatar">💻</div>
-          <div class="member-name">Team Lead - Tech</div>
-          <div class="member-role">Head of Engineering</div>
+          <div class="member-name">Ekramul Hasib</div>
+          <div class="member-role"><Co-Founder></Co-Founder></div>
           <div class="member-bio">Expert in building scalable platforms. Leads the technical innovation at Sahara.</div>
         </div>
-        <div class="team-member">
-          <div class="member-avatar">📊</div>
-          <div class="member-name">Team Lead - Operations</div>
-          <div class="member-role">Head of Operations</div>
-          <div class="member-bio">Ensures smooth operations and logistics. Dedicated to timely delivery and customer satisfaction.</div>
-        </div>
-        <div class="team-member">
-          <div class="member-avatar">💬</div>
-          <div class="member-name">Team Lead - Support</div>
-          <div class="member-role">Head of Customer Support</div>
-          <div class="member-bio">Your voice matters. Leads the team committed to solving your concerns 24/7.</div>
-        </div>
-      </div>
+        
+  
     </section>
 
     <!-- Call to Action -->
