@@ -108,18 +108,6 @@ $recentUsers = fetchAll("
           <span class="material-symbols-outlined">receipt_long</span>
           Orders
         </a>
-        <a href="/admin.php?page=reports" class="role-nav-item <?php echo isActive('reports'); ?>">
-          <span class="material-symbols-outlined">bar_chart</span>
-          Reports
-        </a>
-        <a href="/admin.php?page=newsletter" class="role-nav-item <?php echo isActive('newsletter'); ?>">
-          <span class="material-symbols-outlined">mail</span>
-          Newsletter
-        </a>
-        <a href="/admin.php?page=settings" class="role-nav-item <?php echo isActive('settings'); ?>">
-          <span class="material-symbols-outlined">settings</span>
-          Settings
-        </a>
       </nav>
     </aside>
 

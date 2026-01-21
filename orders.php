@@ -2,10 +2,8 @@
 require_once 'includes/auth.php';
 require_once 'includes/order-functions.php';
 
-// Require authentication
 requireAuth('/auth/login.php');
 
-// Get user orders
 $userId = $_SESSION['user_id'];
 $orders = getOrdersByUser($userId);
 ?>
@@ -113,12 +111,32 @@ $orders = getOrdersByUser($userId);
 
   <script>
     function cancelOrder(orderId) {
-      if (!confirm('Are you sure you want to cancel this order?')) {
+      if (!confirm('Are you sure you want to cancel this order? Your product stock will be restored.')) {
         return;
       }
 
-      // TODO: Implement order cancellation
-      alert('Order cancellation coming soon!');
+      // Send cancellation request
+      fetch('/cancel-order.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `order_id=${orderId}`
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert(data.message);
+            // Reload page to show updated status
+            window.location.reload();
+          } else {
+            alert('Error: ' + data.message);
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Failed to cancel order. Please try again.');
+        });
     }
   </script>
 </body>

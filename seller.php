@@ -62,14 +62,6 @@ if (!in_array($page, $allowed_pages)) {
           <span class="material-symbols-outlined">local_shipping</span>
           Orders
         </a>
-        <a href="seller.php?page=analytics" class="role-nav-item <?php echo isActive('analytics'); ?>">
-          <span class="material-symbols-outlined">analytics</span>
-          Analytics
-        </a>
-        <a href="seller.php?page=settings" class="role-nav-item <?php echo isActive('settings'); ?>">
-          <span class="material-symbols-outlined">settings</span>
-          Settings
-        </a>
       </nav>
     </aside>
 

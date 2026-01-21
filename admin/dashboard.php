@@ -14,10 +14,6 @@
         </div>
       </div>
       <h2 class="stat-card-value"><?php echo number_format($userCount); ?></h2>
-      <div class="stat-card-change positive">
-        <span class="material-symbols-outlined">trending_up</span>
-        <span>+12% from last month</span>
-      </div>
     </div>
 
     <!-- Total Products -->
@@ -29,10 +25,6 @@
         </div>
       </div>
       <h2 class="stat-card-value"><?php echo number_format($productCount); ?></h2>
-      <div class="stat-card-change positive">
-        <span class="material-symbols-outlined">trending_up</span>
-        <span>+8% from last month</span>
-      </div>
     </div>
 
     <!-- Total Orders -->
@@ -44,10 +36,6 @@
         </div>
       </div>
       <h2 class="stat-card-value"><?php echo number_format($orderCount); ?></h2>
-      <div class="stat-card-change positive">
-        <span class="material-symbols-outlined">trending_up</span>
-        <span>+23% from last month</span>
-      </div>
     </div>
 
     <!-- Total Revenue -->
@@ -59,10 +47,6 @@
         </div>
       </div>
       <h2 class="stat-card-value">$<?php echo number_format($totalRevenue, 2); ?></h2>
-      <div class="stat-card-change positive">
-        <span class="material-symbols-outlined">trending_up</span>
-        <span>+18% from last month</span>
-      </div>
     </div>
   </div>
 
@@ -75,7 +59,7 @@
           <span class="material-symbols-outlined">receipt_long</span>
           Recent Orders
         </h2>
-        <a href="/admin/orders.php" class="section-card-action">View All</a>
+        <a href="/admin.php?page=orders" class="section-card-action">View All</a>
       </div>
       <div class="section-card-body">
         <?php if (empty($recentOrders)): ?>
@@ -87,7 +71,7 @@
           <table class="role-table">
             <thead>
               <tr>
-                <th>Order ID</th>
+                <th>ID</th>
                 <th>Customer</th>
                 <th>Total</th>
                 <th>Status</th>
@@ -131,7 +115,7 @@
           <span class="material-symbols-outlined">warning</span>
           Low Stock Alert
         </h2>
-        <a href="/admin/products.php" class="section-card-action">View All</a>
+        <a href="/admin.php?page=products" class="section-card-action">View All</a>
       </div>
       <div class="section-card-body">
         <?php if (empty($lowStockProducts)): ?>
@@ -189,7 +173,7 @@
         <span class="material-symbols-outlined">person_add</span>
         Recent Users
       </h2>
-      <a href="/admin/users.php" class="section-card-action">View All</a>
+      <a href="/admin.php?page=users" class="section-card-action">View All</a>
     </div>
     <div class="section-card-body">
       <?php if (empty($recentUsers)): ?>

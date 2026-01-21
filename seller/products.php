@@ -53,7 +53,7 @@ $categories = ['ELECTRONICS', 'FASHION', 'ACCESSORIES', 'HOME'];
 <script defer src="/seller/product__actions.js"></script>
 
 <main class="role-content">
-  <!-- Success Message -->
+
   <?php if ($success_message): ?>
     <div class="alert alert-success">
       <span class="material-symbols-outlined">check_circle</span>
@@ -64,7 +64,7 @@ $categories = ['ELECTRONICS', 'FASHION', 'ACCESSORIES', 'HOME'];
     </div>
   <?php endif; ?>
 
-  <!-- Page Header -->
+
   <div class="page-header">
     <div class="page-header-content">
       <h1>My Products</h1>
@@ -78,7 +78,7 @@ $categories = ['ELECTRONICS', 'FASHION', 'ACCESSORIES', 'HOME'];
     </div>
   </div>
 
-  <!-- Stats Overview -->
+
   <div class="product-stats">
     <div class="product-stat-card">
       <div class="stat-card-icon blue">
@@ -109,12 +109,12 @@ $categories = ['ELECTRONICS', 'FASHION', 'ACCESSORIES', 'HOME'];
     </div>
   </div>
 
-  <!-- Filters Bar -->
+
   <div class="filters-bar">
     <form method="GET" action="/seller.php" class="filters-form">
       <input type="hidden" name="page" value="products">
 
-      <!-- Search -->
+
       <div class="filter-group search-group">
         <span class="material-symbols-outlined">search</span>
         <input
@@ -125,7 +125,7 @@ $categories = ['ELECTRONICS', 'FASHION', 'ACCESSORIES', 'HOME'];
           class="filter-input search-input">
       </div>
 
-      <!-- Category Filter -->
+
       <div class="filter-group">
         <select name="category" class="filter-select">
           <option value="">All Categories</option>
@@ -137,7 +137,7 @@ $categories = ['ELECTRONICS', 'FASHION', 'ACCESSORIES', 'HOME'];
         </select>
       </div>
 
-      <!-- Stock Filter -->
+
       <div class="filter-group">
         <select name="stock" class="filter-select">
           <option value="">All Stock Levels</option>
@@ -146,7 +146,7 @@ $categories = ['ELECTRONICS', 'FASHION', 'ACCESSORIES', 'HOME'];
         </select>
       </div>
 
-      <!-- Filter Actions -->
+
       <button type="submit" class="btn btn-secondary">
         <span class="material-symbols-outlined">filter_list</span>
         Apply
@@ -160,7 +160,7 @@ $categories = ['ELECTRONICS', 'FASHION', 'ACCESSORIES', 'HOME'];
     </form>
   </div>
 
-  <!-- Products Table -->
+
   <div class="section-card">
     <?php if (empty($products)): ?>
       <div class="empty-state">
@@ -171,10 +171,6 @@ $categories = ['ELECTRONICS', 'FASHION', 'ACCESSORIES', 'HOME'];
         <?php else: ?>
           <p>No products yet</p>
           <small>Add your first product to get started selling</small>
-          <a href="/product-add.php" class="btn btn-primary" style="margin-top: 16px;">
-            <span class="material-symbols-outlined">add</span>
-            Add Your First Product
-          </a>
         <?php endif; ?>
       </div>
     <?php else: ?>
@@ -194,7 +190,7 @@ $categories = ['ELECTRONICS', 'FASHION', 'ACCESSORIES', 'HOME'];
           <tbody>
             <?php foreach ($products as $product): ?>
               <tr>
-                <!-- Product Info -->
+
                 <td>
                   <div class="product-detailed">
                     <img
@@ -211,19 +207,19 @@ $categories = ['ELECTRONICS', 'FASHION', 'ACCESSORIES', 'HOME'];
                   </div>
                 </td>
 
-                <!-- Category -->
+
                 <td>
                   <span class="badge badge-category">
                     <?php echo $product['category']; ?>
                   </span>
                 </td>
 
-                <!-- Price -->
+
                 <td>
                   <strong class="product-price">৳<?php echo $product['price']; ?></strong>
                 </td>
 
-                <!-- Stock -->
+
                 <td>
                   <?php
                   $stock = $product['stock'];
@@ -235,7 +231,7 @@ $categories = ['ELECTRONICS', 'FASHION', 'ACCESSORIES', 'HOME'];
                   </span>
                 </td>
 
-                <!-- Rating -->
+
                 <td>
                   <div class="rating">
                     <span class="material-symbols-outlined">star</span>
@@ -243,7 +239,7 @@ $categories = ['ELECTRONICS', 'FASHION', 'ACCESSORIES', 'HOME'];
                   </div>
                 </td>
 
-                <!-- Status -->
+
                 <td>
                   <?php if ($product['stock'] > 0): ?>
                     <span class="badge badge-active">Active</span>
@@ -252,7 +248,7 @@ $categories = ['ELECTRONICS', 'FASHION', 'ACCESSORIES', 'HOME'];
                   <?php endif; ?>
                 </td>
 
-                <!-- Actions -->
+
                 <td>
                   <div class="table-actions">
                     <button
@@ -281,7 +277,7 @@ $categories = ['ELECTRONICS', 'FASHION', 'ACCESSORIES', 'HOME'];
         </table>
       </div>
 
-      <!-- Results Summary -->
+
       <div class="table-footer">
         <p>
           Showing <?php echo count($products); ?> of <?php echo $totalProducts; ?> products

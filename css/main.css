@@ -926,7 +926,7 @@ footer {
 }
 
 .product-rating {
-  display: flex;
+  display: none;
   align-items: center;
   margin-top: auto;
   gap: 4px;
