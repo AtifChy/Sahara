@@ -367,9 +367,9 @@
           <div>
             <h3>Phone</h3>
             <p>
-              <a href="tel:+8801234567890">+880 1234 567890</a><br>
-              <a href="tel:+8809876543210">+880 9876 543210</a><br>
-              <span style="color: var(--subtext0);">Mon - Fri, 9:00 AM - 6:00 PM</span>
+              <a href="tel:+8801766649703">+880 1766649703</a><br>
+              <a href="tel:+88098764567">+880 9876 4567</a><br>
+              <span style="color: var(--subtext0);">Sunday - Thursday, 9:00 AM - 6:00 PM</span>
             </p>
           </div>
         </div>
@@ -381,7 +381,7 @@
             <p>
               <a href="mailto:support@sahara.com">support@sahara.com</a><br>
               <a href="mailto:info@sahara.com">info@sahara.com</a><br>
-              <a href="mailto:sellers@sahara.com">sellers@sahara.com</a>
+              <a href="mailto:ekramulhasib@gmail.com">ekramulhasib@gmail.com</a>
             </p>
           </div>
         </div>
@@ -393,7 +393,7 @@
             <p>
               Sunday - Thursday: 9:00 AM - 6:00 PM<br>
               Saturday: Closed<br>
-              Sunday: Closed
+              Friday: Closed
             </p>
           </div>
         </div>
@@ -516,7 +516,7 @@
             <span class="faq-icon">⌄</span>
           </div>
           <div class="faq-answer">
-            Yes, we ship to over 150 countries. International shipping rates and times vary by location. You can check shipping costs at checkout.
+            Yes, we ship to over 100 countries. International shipping rates and times vary by location. You can check shipping costs at checkout.
           </div>
         </div>
 
